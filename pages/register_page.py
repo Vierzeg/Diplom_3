@@ -11,7 +11,7 @@ class RegisterPage(BasePage):
 
     @allure.step("Ввод имени: {name}")
     def enter_name(self, name: str):
-        self.send_keys(RegisterPageLocators.NAME_FIELD, name)
+        self.send_keys(RegisterPageLocators.NAME_FIELD_REG, name)
 
     @allure.step("Ввод email: {email}")
     def enter_email(self, email: str):

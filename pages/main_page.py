@@ -4,10 +4,15 @@ import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 from pages.base_page import BasePage
 from locators.locators import MainPageLocators
+from helper.url_holder import *
+
 
 class MainPage(BasePage):
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
+
+    def path(self) -> str:
+        return url_base
 
     @allure.step("Клик по кнопке 'Войти в аккаунт'")
     def click_login_button(self):

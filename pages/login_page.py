@@ -4,14 +4,24 @@ import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 from locators.locators import *
 from pages.base_page import BasePage
+from helper.url_holder import *
 
 class LoginPage(BasePage):
+
+    @property
+    def path(self):
+        return login_url
+
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
 
     @allure.step("Ввод email: {email}")
     def enter_email(self, email: str):
         self.send_keys(LoginPageLocators.EMAIL_FIELD_LOG, email)
+
+    def open(self):
+        """Переопределяем open, так как path — это свойство, а не метод"""
+        self.driver.get(self.path)
 
     @allure.step("Ввод пароля")
     def enter_password(self, password: str):
@@ -29,4 +39,3 @@ class LoginPage(BasePage):
         self.enter_email(email)
         self.enter_password(password)
         self.submit_login()
-

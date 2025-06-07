@@ -4,10 +4,21 @@ import allure
 from selenium.webdriver.remote.webdriver import WebDriver
 from pages.base_page import BasePage
 from locators.locators import *
-
+from helper.url_holder import *
 class RecoveryPage(BasePage):
+
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
+        self._url = None
+
+    def open(self, url=None):
+        if url is None:
+            url = page_res_code_url
+        self._url = url
+        self.driver.get(self._url)
+
+    def path(self):
+        return self._url
 
     @allure.step("Ввод email для восстановления: {email}")
     def enter_email(self, email: str):
