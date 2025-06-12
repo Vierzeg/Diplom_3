@@ -1,9 +1,7 @@
 # constructor_page.py
 
 import allure
-from selenium.webdriver import ActionChains
 from selenium.webdriver.remote.webdriver import WebDriver
-from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 from locators.locators import *
 from helper.url_holder import *
@@ -40,13 +38,10 @@ class ConstructorPage(BasePage):
     def click_ingredient(self):
         self.click(ConstructorPageLocators.INGREDIENT)
 
-    # @allure.step("Закрытие модального окна ингредиента")
-    # def close_ingredient_modal(self):
-    #     self.click(ConstructorPageLocators.INGREDIENT_MODAL_CLOSE)
     @allure.step("Закрытие модального окна ингредиента")
     def close_ingredient_modal(self):
         self.click(ConstructorPageLocators.INGREDIENT_MODAL_CLOSE)
-        self.wait.until(EC.invisibility_of_element_located(ConstructorPageLocators.INGREDIENT_MODAL))
+        self.wait_until_not_visible(ConstructorPageLocators.INGREDIENT_MODAL)
 
     @allure.step("Получение значения счётчика ингредиента")
     def get_ingredient_counter(self) -> str:
@@ -60,8 +55,15 @@ class ConstructorPage(BasePage):
     def add_ingredient_to_cart(self):
         ingredient = self.find_element(ConstructorPageLocators.INGREDIENT)
         drop_zone = self.find_element(ConstructorPageLocators.CART_DROPZONE)
-        actions = ActionChains(self.driver)
-        actions.click_and_hold(ingredient).pause(0.5).move_to_element(drop_zone).pause(0.5).release().perform()
+        self.execute_script("arguments[0].scrollIntoView(true);", ingredient)
+        self.execute_script(
+            "const dragEvent = new DragEvent('dragstart', {bubbles: true}); arguments[0].dispatchEvent(dragEvent);",
+            ingredient,
+        )
+        self.execute_script(
+            "const dropEvent = new DragEvent('drop', {bubbles: true}); arguments[0].dispatchEvent(dropEvent);",
+            drop_zone,
+        )
 
     @allure.step("Проверка, что модальное окно отображается")
     def is_modal_ingr_displayed(self) -> bool:

@@ -7,18 +7,13 @@ from locators.locators import *
 from helper.url_holder import *
 class RecoveryPage(BasePage):
 
+
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
-        self._url = None
 
-    def open(self, url=None):
-        if url is None:
-            url = page_res_code_url
-        self._url = url
-        self.driver.get(self._url)
+    def path(self) -> str:
+        return res_pass_url
 
-    def path(self):
-        return self._url
 
     @allure.step("Ввод email для восстановления: {email}")
     def enter_email(self, email: str):

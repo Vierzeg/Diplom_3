@@ -8,20 +8,15 @@ from helper.url_holder import *
 
 class OrdersFeedPage(BasePage):
 
-    @property
-    def path(self):
-        return feed_url
-
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
+
+    def path(self) -> str:
+        return feed_url
 
     @allure.step("Клик по ссылке 'Лента заказов'")
     def click_orders_feed(self):
         self.click(OrdersFeedPageLocators.ORDERS_FEED_LINK)
-
-    def open(self):
-        """Переопределяем open, так как path — это свойство, а не метод"""
-        self.driver.get(self.path)
 
     @allure.step("Открытие деталей заказа")
     def open_order_detail(self):

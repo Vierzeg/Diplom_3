@@ -9,16 +9,14 @@ from helper.url_holder import *
 
 class ProfilePage(BasePage):
 
-    @property
-    def path(self):
-        return login_url
 
     def __init__(self, driver: WebDriver):
         super().__init__(driver)
 
-    def open(self):
-        """Переопределяем open, чтобы избежать ошибки 'str' object is not callable"""
-        self.driver.get(self.path)
+    @property
+    def path(self):
+        return login_url
+
 
     @allure.step("Клик по кнопке 'Личный кабинет'")
     def go_to_profile(self):

@@ -19,7 +19,7 @@ class TestOrdersFeed:
 
     @allure.title("Проверка счётчиков заказов")
     def test_order_counters(self, orders_feed_page):
-        orders_feed_page.open()  # открываем страницу ленты заказов через метод open
+        orders_feed_page.open()
         total = orders_feed_page.get_total_orders_count()
         today = orders_feed_page.get_today_orders_count()
 

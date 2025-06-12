@@ -11,15 +11,16 @@ class TestMainFunctionality:
         main_page.click_logo()
         assert constructor_page.is_opened()
 
+
     @allure.title("Клик по ингредиенту — открытие и закрытие модального окна")
     def test_ingredient_modal_open_close(self, constructor_page):
         constructor_page.open()
         constructor_page.click_ingredient()
         constructor_page.wait_for_ingredient_modal()
-        assert constructor_page.is_modal_ingr_displayed()
+        assert constructor_page.is_modal_ingr_displayed(), "Модальное окно не открылось"
 
         constructor_page.close_ingredient_modal()
-        assert constructor_page.is_close_modal_ingr()
+        assert constructor_page.is_close_modal_ingr(), "Модальное окно не закрылось"
 
     @allure.title("Добавление ингредиента увеличивает счётчик")
     def test_ingredient_counter_increases(self, constructor_page):
