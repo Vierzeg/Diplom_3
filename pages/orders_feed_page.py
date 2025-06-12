@@ -21,6 +21,7 @@ class OrdersFeedPage(BasePage):
     @allure.step("Открытие деталей заказа")
     def open_order_detail(self):
         self.click(OrdersFeedPageLocators.ORDER_ITEM)
+        self.wait_for_element(OrdersFeedPageLocators.ORDER_DETAIL_MODAL)
 
     @allure.step("Закрытие модального окна заказа")
     def close_order_detail(self):

@@ -9,11 +9,8 @@ class TestOrdersFeed:
     def test_order_detail_modal(self, login_page, profile_page, orders_feed_page):
         login_page.login_user("pavel18899prac@ya.ru", "Hgr06m_434yf")
         profile_page.go_to_profile()
-        profile_page.wait_for_element(ProfilePageLocators.PROFILE_LOC)
         profile_page.go_to_order_history()
-
         orders_feed_page.open_order_detail()
-        orders_feed_page.wait_for_element(OrdersFeedPageLocators.ORDER_DETAIL_MODAL)
 
         assert orders_feed_page.is_modal_displayed()
 
